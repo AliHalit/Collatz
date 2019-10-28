@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main()
+{
+
+	int n=0;
+	int j=0;
+	
+	pid_t pid;
+
+		do
+		{
+			printf("Please enter a number greater than 0 to run the Collatz Conjecture.\n"); 
+  			scanf("%d", &j);	
+		}while (j <= 0);
+
+		pid = fork();
+
+		if (pid == 0)
+		{
+			printf("Child is worjing...\n");
+			printf("%d\n",j);
+			while (j!=1)
+			{
+				if (j%2 == 0)
+				{
+					j = j/2;
+				}
+				else if (j%2 == 1)
+				{
+					j = 3 * (j) + 1;
+				}	
+			
+				printf("%d\n",j);
+			}
+		
+			printf("Child process is done.\n");
+		}
+		else
+		{
+			printf("Parents is waiting on child process...\n");
+			printf("Parent process is done.\n");
+		}
+	return 0; 
+}
